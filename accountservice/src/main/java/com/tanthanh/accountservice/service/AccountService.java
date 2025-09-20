@@ -33,12 +33,13 @@ public class AccountService {
     }
     public Mono<Boolean> bookAmount(double amount,String accountId){
         return accountRepository.findById(accountId)
-                .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)))
+                .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found sos ", HttpStatus.NOT_FOUND)))
                 .flatMap(account -> {
                     if(account.getBalance() < amount + account.getReserved()){
                         return Mono.just(false);
                     }
                     account.setReserved(account.getReserved() + amount);
+
                     return accountRepository.save(account);
                 })
                 .flatMap(account -> Mono.just(true));
