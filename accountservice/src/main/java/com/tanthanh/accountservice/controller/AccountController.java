@@ -19,6 +19,7 @@ public class AccountController {
 
     @GetMapping(value = "/checkBalance/{id}")
     public Mono<AccountDTO> checkBalance(@PathVariable String id){
+      system.out.print("hello huy ignore");
         return accountService.checkBalance(id);
     }
 }
