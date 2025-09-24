@@ -63,4 +63,12 @@ public class AccountService {
                     return accountRepository.save(account);
                 }).map(AccountDTO::entityToModel);
     }
+  public Mono<AccountDTO> getUserByID(double amount, String accountId){
+    return accountRepository.findById(accountId)
+        .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)))
+        .flatMap(account -> {
+          account.setReserved(account.getReserved() - amount);
+          return accountRepository.save(account);
+        }).map(AccountDTO::entityToModel);
+  }
 }
