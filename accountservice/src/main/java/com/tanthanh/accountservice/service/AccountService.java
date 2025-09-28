@@ -75,7 +75,7 @@ public class AccountService {
   }
 
 
-  public Mono<AccountDTO> getUserBynamehuywindow(double amount, String accountId){
+  public Mono<AccountDTO> getUserByname(double amount, String accountId){
     return accountRepository.findById(accountId)
         .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)))
         .flatMap(account -> {
