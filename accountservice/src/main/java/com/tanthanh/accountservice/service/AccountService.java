@@ -52,14 +52,12 @@ public class AccountService {
                     account.setBalance(account.getBalance() - amount);
                     return accountRepository.save(account);
                 }).map(AccountDTO::entityToModel);
-                 System.out.print("hello huy");
-                 System.out.print("toi muon nho anh review");
-                 System.out.print("hello huy macos");
+              System.out.print("hello huy macos");
 
     }
-    public Mono<AccountDTO> bookAmounthuywindow(double amount, String accountId){
+    public Mono<AccountDTO> rollbackReserved(double amount, String accountId){
         return accountRepository.findById(accountId)
-                .switchIfEmpty(Mono.error(new CommonException("A01", "huy not found", HttpStatus.NOT_FOUND)))
+                .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)))
                 .flatMap(account -> {
                     account.setReserved(account.getReserved() - amount);
                     return accountRepository.save(account);
