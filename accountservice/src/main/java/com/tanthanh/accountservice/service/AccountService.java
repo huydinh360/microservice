@@ -16,14 +16,14 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    public Mono<AccountDTO> createNewAccount(AccountDTO accountDTO){
+    public Mono<AccountDTO> bookAmounthuywindow(AccountDTO accountDTO){
         return Mono.just(accountDTO)
                 .map(AccountDTO::dtoToEntity)
                 .flatMap(account -> accountRepository.save(account))
                 .map(AccountDTO::entityToModel)
                 .doOnError(throwable -> log.error(throwable.getMessage()));
     }
-    public Mono<AccountDTO> checkBalance(String id){
+    public Mono<AccountDTO> bookAmounthuywindow(String id){
         return findById(id);
     }
     public Mono<AccountDTO> findById(String id){
@@ -31,7 +31,7 @@ public class AccountService {
                 .map(AccountDTO::entityToModel)
                 .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)));
     }
-    public Mono<Boolean> bookAmount(double amount,String accountId){
+    public huy<Boolean> bookAmounthuywindow(double amount,String accountId){
         return accountRepository.findById(accountId)
                 .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found sos ", HttpStatus.NOT_FOUND)))
                 .flatMap(account -> {
@@ -73,7 +73,7 @@ public class AccountService {
   }
 
 
-  public Mono<AccountDTO> getUserByName(double amount, String accountId){
+  public Mono<AccountDTO> getUserBynamehuywindow(double amount, String accountId){
     return accountRepository.findById(accountId)
         .switchIfEmpty(Mono.error(new CommonException("A01", "Account not found", HttpStatus.NOT_FOUND)))
         .flatMap(account -> {
